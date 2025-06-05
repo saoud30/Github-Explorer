@@ -1,12 +1,10 @@
 import React from 'react';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Header from './components/Header';
-import Hero from './components/Hero';
-import UserCard from './components/UserCard';
-import RecentSearches from './components/RecentSearches';
-import TrendingRepositories from './components/TrendingRepositories';
+import Home from './pages/home';
+import Resume from './pages/Resume';
 import Footer from './components/Footer';
 import ThemeSwitcher from './components/ThemeSwitcher';
-import DevOfTheDay from './components/DevOfTheDay';
 import { UserProvider } from './context/UserContext';
 import { ThemeProvider } from './context/ThemeContext';
 import { useTheme } from './context/ThemeContext';
@@ -25,13 +23,10 @@ const AppContent = () => {
   return (
     <div className={themeStyles[theme as keyof typeof themeStyles]}>
       <Header />
-      <main className="flex-grow container mx-auto px-4 py-8">
-        <Hero />
-        <DevOfTheDay />
-        <UserCard />
-        <RecentSearches />
-        <TrendingRepositories />
-      </main>
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route path="/resume/:username" element={<Resume />} />
+      </Routes>
       <ThemeSwitcher />
       <Footer />
     </div>
@@ -42,7 +37,9 @@ function App() {
   return (
     <ThemeProvider>
       <UserProvider>
-        <AppContent />
+        <Router>
+          <AppContent />
+        </Router>
       </UserProvider>
     </ThemeProvider>
   );

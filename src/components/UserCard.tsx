@@ -1,10 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import { useSpring, animated } from '@react-spring/web';
+import { useNavigate } from 'react-router-dom';
 import { useUserContext } from '../context/UserContext';
 import { getAISummary } from '../services/geminiService';
 import { fetchUserStats } from '../services/githubService';
 import TechStackChart from './TechStackChart';
-import { Award, Star, GitFork, Clock } from 'lucide-react';
+import { Award, Star, GitFork, Clock, FileText } from 'lucide-react';
 import ContributionCalendar from './ContributionCalendar';
 
 interface UserStats {
@@ -16,6 +17,7 @@ interface UserStats {
 }
 
 const UserCard = () => {
+  const navigate = useNavigate();
   const { user, loading } = useUserContext();
   const [flipped, setFlipped] = useState(false);
   const [aiSummary, setAiSummary] = useState('');
@@ -72,6 +74,10 @@ const UserCard = () => {
       target: Math.ceil((stats?.mostStarred?.stargazers_count || 0) / 100) * 100 + 100 // Next hundred
     },
     hasPublicRepos: user.public_repos > 0
+  };
+
+  const handleViewResume = () => {
+    navigate(`/resume/${user.login}`);
   };
 
   return (
@@ -152,6 +158,15 @@ const UserCard = () => {
             </div>
           </animated.div>
         </div>
+
+        {/* Resume Button */}
+        <button
+          onClick={handleViewResume}
+          className="w-full mt-4 flex items-center justify-center gap-2 px-4 py-2 bg-purple-600 text-white rounded-lg hover:bg-purple-700 transition-colors"
+        >
+          <FileText className="h-4 w-4" />
+          View GitHub Resume
+        </button>
       </div>
 
       {/* Achievements Section */}
