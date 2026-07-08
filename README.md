@@ -121,10 +121,6 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 - GitHub API for providing the data
 - React and the entire open-source community
 
-## 📬 Contact
-
-Created with 💜 by SHAZY - [LinkedIn](https://www.linkedin.com/in/mohd-saoud30) | [GitHub](https://github.com/saoud30)
-
 ---
 
 ⭐ Star this repository if you find it helpful!
